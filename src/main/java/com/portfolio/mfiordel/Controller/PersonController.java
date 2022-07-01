@@ -43,6 +43,7 @@ public class PersonController {
                              @RequestParam("lastname") String newLastName,
                              @RequestParam("address") String newAddress,
                              @RequestParam("birthday") Date newBirthday,
+                             @RequestParam("url_img") Date newUrlImg,
                              @RequestParam("phone") String newPhone){
         
         Person person = ipersonService.findPerson(id);
@@ -52,6 +53,7 @@ public class PersonController {
         person.setAddress(newAddress);
         person.setBirthday(newBirthday);
         person.setPhone(newPhone);
+        person.setUrl_img(newName);
         
         ipersonService.savePerson(person);
         return person;
