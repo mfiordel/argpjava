@@ -41,7 +41,7 @@ public class User {
         this.email = email;
         this.password = password;
     }
-   
+
     public int getId() {
         return id;
     }
@@ -89,6 +89,5 @@ public class User {
     public void setRoles(Set<Rol> roles) {
         this.roles = roles;
     }
-    
-    
+      
 }
