@@ -1,5 +1,7 @@
 package com.portfolio.mfiordel.Entity;
 
+//import java.text.SimpleDateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,6 +29,8 @@ public class Experience {
     @NotNull
     private boolean is_actually;
     
+    //SimpleDateFormat formatter = new SimpleDateFormat("EE MMM d y H:m:s ZZZ");
+        
     @NotNull
     private Date initial_date;
     
@@ -41,6 +45,7 @@ public class Experience {
     //@ManyToOne()
     //@JoinColumn(name = "person_id")
     //private Long person_id;
+    private Long person_id;
     
     
 }

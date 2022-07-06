@@ -36,5 +36,8 @@ public class Person {
     private String phone;
     
     private String url_img;
+    
+    @Size(min = 1, max = 300,message = "No cumple con la longitud")
+    private String about_me;
 
 }

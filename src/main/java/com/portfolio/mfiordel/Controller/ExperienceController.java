@@ -45,7 +45,8 @@ public class ExperienceController {
                                      @RequestParam("end_date") Date newEndDate,
                                      @RequestParam("description") String newDescription,
                                      @RequestParam("url_img") String newUrlImage,
-                                     @RequestParam("style") String newStyle
+                                     @RequestParam("style") String newStyle,
+                                     @RequestParam("person_id") Long newPersonId
                                      //@RequestParam("person_id") Long newPersonId
                                      ){
         
@@ -58,6 +59,7 @@ public class ExperienceController {
         experience.setDescription(newDescription);
         experience.setUrl_img(newUrlImage);
         experience.setStyle(newStyle);
+        experience.setPerson_id(newPersonId);
         //experience.setPerson_id(newPersonId);
         
         iexperienceService.saveExperience(experience);
