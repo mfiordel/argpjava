@@ -20,17 +20,17 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private final static Logger logger = LoggerFactory.getLogger(JwtTokenFilter.class);
     
     @Autowired
-    JwtProvider JwtProvider;
+    JwtProvider jwtProvider;
     
     @Autowired
     UserDetailServiceImp userDetailService;
     
     @Override
-    protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
-            String token = getToken(req);
-            if(token != null && JwtProvider.validateToken(token)){
-                String nameUser = JwtProvider.getNameUserFromToken(token);
+            String token = getToken(request);
+            if(token != null && jwtProvider.validateToken(token)){
+                String nameUser = jwtProvider.getNameUserFromToken(token);
                 UserDetails userDetails = userDetailService.loadUserByUsername(nameUser);
                 UsernamePasswordAuthenticationToken auth = 
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
@@ -39,7 +39,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         } catch (Exception e){
             logger.error("fail in method doFilter");
         }
-        filterChain.doFilter(req, res);
+        filterChain.doFilter(request, response);
     }
     
     private String getToken(HttpServletRequest request){

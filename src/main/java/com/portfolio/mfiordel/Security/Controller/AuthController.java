@@ -57,9 +57,8 @@ public class AuthController {
         return new ResponseEntity(new Mensaje("ese nombre ya existe"), HttpStatus.BAD_REQUEST);
     if(userService.existsByEmail(newUser.getEmail()))
         return new ResponseEntity(new Mensaje("ese email ya existe"), HttpStatus.BAD_REQUEST);
-    User user =
-            new User(newUser.getName(), newUser.getNameUser(), newUser.getEmail(),
-            passwordEncoder.encode(newUser.getPassword()));
+    User user = new User(newUser.getName(), newUser.getNameUser(),
+            newUser.getEmail(), passwordEncoder.encode(newUser.getPassword()));
     Set<Rol> roles = new HashSet<>();
     roles.add(rolService.getByRolName(RolName.ROLE_USER).get());
     if(newUser.getRoles().contains("admin"))
@@ -69,11 +68,12 @@ public class AuthController {
     return new ResponseEntity(new Mensaje("usuario guardado"),HttpStatus.CREATED);
     }
     
+    @PostMapping("/login")
     public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginUser loginUser, BindingResult bindingResult){
         if(bindingResult.hasErrors())
          return new ResponseEntity(new Mensaje("campos mal puestos"), HttpStatus.BAD_REQUEST);
-        Authentication authentication =
-                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUser.getNameUser(), loginUser.getPassword()));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                loginUser.getNameUser(), loginUser.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtProvider.generateToken(authentication);
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
